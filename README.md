@@ -12,7 +12,7 @@ Partner 2: Hayden Zangerl-Salter
 In the space below, write a paragraph with take aways you got from 
 talking about working styles with your partner.
 
-
+We both agree on many things. We're both available most of the day, and have similar working styles. We decided that we will be compartmentalizing problems and communicating through SMS. If we need to write something, we will use google docs. We like to finish assignments around a day before they are due, and we can work a long time on a problem without a break. We will most likely finish our work during weekdays before 11 PM and frequently update each other on progress made on the assignment.
 
 
 ## 1. Convoluted Plots
