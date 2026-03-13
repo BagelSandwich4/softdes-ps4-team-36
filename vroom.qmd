@@ -41,7 +41,7 @@ def make_results_plot(path, engine_type):
     # In the following lines, replace the strings with appropriate labels.
     plt.xlabel("Force (Lbs)")
     plt.ylabel("Output of Engine (hp)")
-    plt.title(f"Force applied to Accelarator vs. Output of Engine")
+    plt.title(f"Force applied to Accelarator vs. Engine Output")
     plt.show()
 ```
 

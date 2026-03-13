@@ -80,7 +80,7 @@ def find_all_orfs_one_frame(strand):
 
     Returns:
         list, each element is a string representing an in-frame
-        ORF of the givne strand.
+        ORF of the given strand.
     """
     orfs = []
     i = 0
@@ -102,7 +102,7 @@ def find_all_orfs(strand):
     that strand including not just in-frame ORFs.
 
     Args:
-        strand, string representing a strand of DNA
+        strand, string representing a strand of DNA.
 
     Returns:
         orfs, list of strings representing all ORFs found in the
@@ -159,10 +159,10 @@ def noncoding_orf_threshold(strand, num_trials):
     over multiple random strands.
 
     Args:
-        strand, string representing a strand of DNA
+        strand, string representing a strand of DNA.
 
         num_trials, int representing how many random strains are
-        being tested
+        being tested.
 
     Returns:
         int representing the ratio of the minimum ORF length to the longest
@@ -207,14 +207,14 @@ def find_genes(path):
     from a file in a NIH database, then returns a list of all amino
     acid sequences in the longest ORF strands from 1500 randomly
     shuffled trials of the target strand, found in the database at
-    path
+    given path.
 
     Args:
         path, string representing the location of a file in the NIH
-        databse
+        databse.
 
     Returns:
-        genes, list of all amino acid sequences
+        genes, list of all amino acid sequences.
     """
     strand = load_fasta_file(path)
     threshold = noncoding_orf_threshold(strand, 1500)

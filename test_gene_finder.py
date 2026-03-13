@@ -22,7 +22,7 @@ get_complement_cases = [
 get_reverse_complement_cases = [
     # Check a single nucleotide, which should be the same as the complement.
     ("A", "T"),
-    # Check correctness for a longer sequence
+    # Check correctness for a longer sequence.
     ("ATGCCCGCTTT", "AAAGCGGGCAT"),
 ]
 
@@ -33,7 +33,7 @@ rest_of_orf_cases = [
     ("ATGAAA", ""),
     # Check a case without a stop codon where the length is not a multiple of 3.
     ("ATGA", ""),
-    # Check a case with a single nucleotide
+    # Check a case with a single nucleotide.
     ("A", ""),
 ]
 
@@ -42,7 +42,7 @@ find_all_orfs_one_frame_cases = [
     ("ATGTGA", ["ATG"]),
     # Check a strand with two ORFs.
     ("ATGTAAATGAAATAA", ["ATG", "ATGAAA"]),
-    # Check for no input
+    # Check for no input.
     ("", []),
 ]
 
@@ -50,9 +50,9 @@ find_all_orfs_cases = [
     # This case from find_all_orfs has no ORFs in other frames, so it should
     # return the same result as in the one_frame case.
     ("ATGTAAATGAAATAA", ["ATG", "ATGAAA"]),
-    # Check for a single strand input
+    # Check for a single strand input.
     ("A", []),
-    # Check for no input
+    # Check for no input.
     ("", []),
 ]
 

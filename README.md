@@ -7,7 +7,7 @@ Let us know the names of each partner below.
 
 Partner 1: Ophelia Lonzo
 
-Partner 2: Hayden Zangerl-Salter
+Partner 2: Hayden Zangerl-Salter 
 
 In the space below, write a paragraph with take aways you got from 
 talking about working styles with your partner.
