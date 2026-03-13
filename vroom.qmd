@@ -34,8 +34,6 @@ def make_results_plot(path, engine_type):
     forces = data_set["Force"]
     power_output = data_set["Output"]
 
-    # Uncomment the next code line and modify to plot the data appropriately.
-    # Then delete these comment lines.
     plt.plot(forces, power_output, ".")
 
     # In the following lines, replace the strings with appropriate labels.

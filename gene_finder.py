@@ -126,7 +126,7 @@ def find_all_orfs_both_strands(strand):
         strand, string representing a sequence of DNA.
 
     Returns:
-        orfs: a list of strings representing all ORFs found in the
+        orfs: a list of strings representing all ORFs found in the 
         given DNA strand as well is its reverse complement strand.
     """
     orfs = []

@@ -17,7 +17,7 @@ use the latest version of the library code.
 %autoreload 2
 ```
 
-To analyze the SARS-CoV-2 virus, we wrote code to use the protein-BLAST search engine to determine which of protein-coding SARS-CoV-2 genes may encode key proteins of the virus. 
+To analyze the SARS-CoV-2 virus, we wrote code to use the protein-BLAST search engine to determine which of protein-coding SARS-CoV-2 genes may encode key proteins of the virus.
 
 Starting off, we imported a genome from the protein-BLAST search engine.
 
