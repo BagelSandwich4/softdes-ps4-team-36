@@ -11,11 +11,19 @@ import gene_finder
 get_complement_cases = [
     # Check that the complement of A is T.
     ("A", "T"),
+    # Checking that the complement of G is C.
+    ("G", "C"),
+    # Checking that the complement of C is G.
+    ("C", "G"),
+    # Checking that the complement of T is A.
+    ("T", "A"),
 ]
 
 get_reverse_complement_cases = [
     # Check a single nucleotide, which should be the same as the complement.
     ("A", "T"),
+    # Check correctness for a longer sequence
+    ("ATGCCCGCTTT", "AAAGCGGGCAT"),
 ]
 
 rest_of_orf_cases = [
@@ -25,6 +33,8 @@ rest_of_orf_cases = [
     ("ATGAAA", ""),
     # Check a case without a stop codon where the length is not a multiple of 3.
     ("ATGA", ""),
+    # Check a case with a single nucleotide
+    ("A", ""),
 ]
 
 find_all_orfs_one_frame_cases = [
@@ -32,23 +42,43 @@ find_all_orfs_one_frame_cases = [
     ("ATGTGA", ["ATG"]),
     # Check a strand with two ORFs.
     ("ATGTAAATGAAATAA", ["ATG", "ATGAAA"]),
+    # Check for no input
+    ("", []),
 ]
 
 find_all_orfs_cases = [
     # This case from find_all_orfs has no ORFs in other frames, so it should
     # return the same result as in the one_frame case.
     ("ATGTAAATGAAATAA", ["ATG", "ATGAAA"]),
+    # Check for a single strand input
+    ("A", []),
+    # Check for no input
+    ("", []),
 ]
 
 find_all_orfs_both_strands_cases = [
     # Test a short strand starting with a start codon whose reverse complement
     # is itself. Thus this should return two copies of the same ORF.
     ("ATGTAGCTACAT", ["ATG", "ATG"]),
+    # Check for no input
+    ("", []),
+    # Check for more than two segments
+    ("ATGTAAATGAAATAAATGTAAATGAAATAA", ["ATG", "ATGAAA", "ATG", "ATGAAA"]),
+    # Check for more than two segments that aren't the same
+    ("ATGTAAATGAAATAAATGTAAATGCGGAAATAA", ["ATG", "ATGAAA", "ATG", "ATGCGGAAA"]),
 ]
 
 find_longest_orf_cases = [
     # An ORF covering the whole strand is by default the longest ORF.
     ("ATGAAAAAAAAATAG", "ATGAAAAAAAAA"),
+    # Check for no input
+    ("", ""),
+    # Check that it works with multiple ORFs
+    ("ATGTAAATGAAATAA", "ATGAAA"),
+    # Check that it works with more ORFs
+    ("ATGTAAATGAAATAAATGTAAATGCGGAAATAA", "ATGCGGAAA"),
+    # Check for a single nucleotide
+    ("A", ""),
 ]
 
 encode_amino_acids_cases = [
@@ -56,6 +86,12 @@ encode_amino_acids_cases = [
     ("ATG", "M"),
     # Check a case in which the length is not a multiple of 3.
     ("ATGCCCGCTTT", "MPA"),
+    # Check a single nucleotide.
+    ("A", ""),
+    # Check for no input.
+    ("", ""),
+    # Check for accuracy with short DNA strand
+    ("ATGAAATACATG", "MKYM"),
 ]
 
 
@@ -67,13 +103,9 @@ try:
     import collected_test_cases
 
     get_complement_cases = collected_test_cases.get_complement_cases
-    get_reverse_complement_cases = (
-        collected_test_cases.get_reverse_complement_cases
-    )
+    get_reverse_complement_cases = collected_test_cases.get_reverse_complement_cases
     get_rest_of_orf_cases = collected_test_cases.get_rest_of_orf_cases
-    find_all_orfs_one_frame_cases = (
-        collected_test_cases.find_all_orfs_one_frame_cases
-    )
+    find_all_orfs_one_frame_cases = collected_test_cases.find_all_orfs_one_frame_cases
     find_all_orfs_cases = collected_test_cases.find_all_orfs_cases
     find_all_orfs_both_strands_cases = (
         collected_test_cases.find_all_orfs_both_strands_cases
@@ -136,14 +168,11 @@ def test_double_complement(nucleotide):
             nucleotides.
     """
     assert (
-        gene_finder.get_complement(gene_finder.get_complement(nucleotide))
-        == nucleotide
+        gene_finder.get_complement(gene_finder.get_complement(nucleotide)) == nucleotide
     )
 
 
-@pytest.mark.parametrize(
-    "strand,reverse_complement", get_reverse_complement_cases
-)
+@pytest.mark.parametrize("strand,reverse_complement", get_reverse_complement_cases)
 def test_get_reverse_complement(strand, reverse_complement):
     """
     Test that a string of nucleotides get mapped to its reverse complement.

@@ -2,14 +2,22 @@
 Library for finding potential genes in a strand of DNA.
 """
 
+import random
 from helpers import amino_acid
 from helpers import load_fasta_file
-import random
 
 
 def get_complement(nucleotide):
     """
-    Your docstring goes here.
+    Finds the complementary nucleotide to an input (ex. "A"->"T").
+
+    ARGS:
+        nucleotide, string, single capitol letter representing the nucleotide
+        you want to find the completmentary version of (ex. "A")
+
+    Returns:
+        a string with a single capitol letter representing the complement
+        of the input nucleotide (ex. "T").
     """
     if nucleotide == "A":
         return "T"
@@ -19,11 +27,19 @@ def get_complement(nucleotide):
         return "G"
     if nucleotide == "G":
         return "C"
+    return ""
 
 
 def get_reverse_complement(strand):
     """
-    Your docstring goes here.
+    Finds the reverse complement strand from any given DNA strand.
+
+    ARGS:
+        strand, string, string consisting only of the following
+        characters: "A", "T", "G", "C" representing a strand of DNA.
+
+    Returns:
+        string, reverse complement of input strand.
     """
     strand_list = list(strand)
     reverse_strand = []
@@ -35,7 +51,16 @@ def get_reverse_complement(strand):
 
 def rest_of_orf(strand):
     """
-    Your docstring goes here.
+    Takes a strand of DNA that begins with a start codon and returns the
+    sequence of nucleotides representing the rest of the ORF up to the
+    next stop codon (non-inclusive). If an ORF is not provided, this will
+    return nothing.
+
+    Args:
+        strand, string representing DNA as a sequence of nucleotides.
+
+    Returns:
+        string of the ORF from the start to the next stop codon.
     """
     stop_codons = ["TAA", "TAG", "TGA"]
     for i in range(0, len(strand) - 2, 3):
@@ -47,7 +72,15 @@ def rest_of_orf(strand):
 
 def find_all_orfs_one_frame(strand):
     """
-    Your docstring goes here.
+    Takes string strand and returns a list representing all
+    in-frame ORFs.
+
+    Args:
+        strand, string representing DNA as a sequence of nucleotides.
+
+    Returns:
+        list, each element is a string representing an in-frame
+        ORF of the givne strand.
     """
     orfs = []
     i = 0
@@ -65,7 +98,15 @@ def find_all_orfs_one_frame(strand):
 
 def find_all_orfs(strand):
     """
-    Your docstring goes here.
+    Finds all ORFs of a given strand, returns all ORFs found in
+    that strand including not just in-frame ORFs.
+
+    Args:
+        strand, string representing a strand of DNA
+
+    Returns:
+        orfs, list of strings representing all ORFs found in the
+        strand of DNA, including those out-of-frame.
     """
     orfs = []
 
@@ -78,7 +119,15 @@ def find_all_orfs(strand):
 
 def find_all_orfs_both_strands(strand):
     """
-    Your docstring goes here.
+    takes a strand of DNA and returns a list of strings representing
+    all ORFs found in the strand or its reverse complement.
+
+    Args:
+        strand, string representing a sequence of DNA.
+
+    Returns:
+        orfs: a list of strings representing all ORFs found in the
+        given DNA strand as well is its reverse complement strand.
     """
     orfs = []
     reverse = get_reverse_complement(strand)
@@ -89,7 +138,14 @@ def find_all_orfs_both_strands(strand):
 
 def find_longest_orf(strand):
     """
-    Your docstring goes here.
+    Returns the longest ORF found in a given strand as well as in its
+    reverse complement strand.
+
+    Args:
+        strand, string representing a sequence of DNA.
+
+    Returns:
+        string representing the longest ORF found in the DNA sequence.
     """
     orfs = find_all_orfs_both_strands(strand)
     if not orfs:
@@ -99,7 +155,18 @@ def find_longest_orf(strand):
 
 def noncoding_orf_threshold(strand, num_trials):
     """
-    Your docstring goes here.
+    Returns the lowest length ORF in randomly shuffled DNA strands
+    over multiple random strands.
+
+    Args:
+        strand, string representing a strand of DNA
+
+        num_trials, int representing how many random strains are
+        being tested
+
+    Returns:
+        int representing the ratio of the minimum ORF length to the longest
+        ORF length found by randomly shuffling the input DNA strand.
     """
     min_length = float("inf")
     for _ in range(num_trials):
@@ -114,7 +181,13 @@ def noncoding_orf_threshold(strand, num_trials):
 
 def encode_amino_acids(orf):
     """
-    Your docstring goes here.
+    Converts a given ORF into a sequence of amino acids.
+
+    Args:
+        orf, string representing a strand of DNA that is an ORF.
+
+    Returns:
+        result, string representing an amino acid sequence.
     """
     result = ""
     for i in range(0, len(orf), 3):
@@ -130,7 +203,18 @@ def encode_amino_acids(orf):
 
 def find_genes(path):
     """
-    Your docstring goes here.
+    Finds potential protein-coding genes in a string of nucleotides
+    from a file in a NIH database, then returns a list of all amino
+    acid sequences in the longest ORF strands from 1500 randomly
+    shuffled trials of the target strand, found in the database at
+    path
+
+    Args:
+        path, string representing the location of a file in the NIH
+        databse
+
+    Returns:
+        genes, list of all amino acid sequences
     """
     strand = load_fasta_file(path)
     threshold = noncoding_orf_threshold(strand, 1500)
