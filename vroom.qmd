@@ -36,12 +36,12 @@ def make_results_plot(path, engine_type):
 
     # Uncomment the next code line and modify to plot the data appropriately.
     # Then delete these comment lines.
-    #plt.plot(FILL IN, FILL IN, ".")
+    plt.plot(forces, power_output, ".")
 
     # In the following lines, replace the strings with appropriate labels.
-    plt.xlabel("X AXIS LABEL HERE")
-    plt.ylabel("Y AXIS LABEL HERE")
-    plt.title("PLOT TITLE HERE (USE AN F-STRING)")
+    plt.xlabel("Force (Lbs)")
+    plt.ylabel("Output of Engine (hp)")
+    plt.title(f"Force applied to Accelarator vs. Output of Engine")
     plt.show()
 ```
 
@@ -52,7 +52,7 @@ At the start of our experiments, we received a small quantity (around 100g) of v
 We can see this smoothness clearly in the results of our experiment:
 
 ```{python}
-# Plot the appropriate set of data here.
+make_results_plot("data/test_design_2.csv",'vibranium')
 ```
 
 As the plot shows, the output of the engine increases nearly perfectly linearly as the force applied to the accelerator is increased, ranging from just over 5 hp to nearly 9 hp. At 13 lbs of force, the output of the engine jumped to nearly 13 hp, the cause of which we have not yet determined.
@@ -64,7 +64,7 @@ In our second design, we acquired a flux capacitor and used it as the central co
 The results of our tests with this design shows this "sweet spot":
 
 ```{python}
-# Plot the appropriate set of data here.
+make_results_plot("data/test_design_3.csv", "flux capacitor")
 ```
 
 As the plot shows, the output of the engine steadily increases until about 11 lbs of force, and then *decreases* after that point. Of the experiments we carried out, this was one of the highest outputs we saw for an accelerator force in this range. That being said, our test driver reported that it would be significantly more difficult to hold the accelerator at this level for long periods of time, making this engine design not especially well-suited for longer trips.
@@ -76,7 +76,7 @@ For our third design, we created a small arc reactor with a palladium core to po
 The results of our tests show this instability in power output:
 
 ```{python}
-# Plot the appropriate set of data here.
+make_results_plot("data/test_design_1.csv", "palladium")
 ```
 
 As the plot shows, the output of the engine varied significantly as the accelerator force was increased. While in some circumstances the power output of the engine was rather high (such as at 12 lbs), and while the relationship is *roughly* linear in the sense that the power output increases somewhat as the accelerator force is increased, we ultimately found that this design was too unstable for long-term use.
@@ -88,7 +88,7 @@ For our final proposed design, we used strategically-placed graphene components 
 Our plot shows the results of our experiments, which as can be seen, were unfortunately cut short:
 
 ```{python}
-# Plot the appropriate set of data here.
+make_results_plot("data/test_design_4.csv", "graphene")
 ```
 
 We began by testing the power output at 8 lbs repeatedly, which resulted in power outputs that varied rather widely. Our test driver then applied an accelerator force of 19 lbs, producing a rather high output of 12.5 hp. Unfortunately, in this test, another component of the engine malfunctioned, preventing us from doing any further testing.
